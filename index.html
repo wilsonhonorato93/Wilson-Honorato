@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GestorAutônomo</title>
+    <script>
+      // Prevent libraries from crashing when trying to overwrite the read-only window.fetch property
+      (function() {
+        const originalFetch = window.fetch;
+        try {
+          Object.defineProperty(window, 'fetch', {
+            configurable: true,
+            enumerable: true,
+            get: () => originalFetch,
+            set: (v) => { 
+              console.warn('A library tried to overwrite window.fetch. This was prevented to avoid a TypeError.');
+            }
+          });
+        } catch (e) {
+          // If already defined or non-configurable, ignore
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+
